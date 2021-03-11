@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```rails db:create``` - to run database creation
 
-Things you may want to cover:
+```rails db:migrate``` - to run database migrations
 
-* Ruby version
+```rails db:seed``` - to run database seed (to create root category)
 
-* System dependencies
+```rails s``` - to run webserver
 
-* Configuration
+Aby uruchomić projekt należy wykonać powyższe polecenia.
 
-* Database creation
+Pierwszym krokiem jest utworzenie kategorii wraz z ich parametrami.
 
-* Database initialization
+Kategoriom można przypisywać dziedziczenie atrybutów z innych kategorii,
+dziedziczenie jest po drzewie nadrzędnych kategorii aż do root.
 
-* How to run the test suite
+Po dodaniu produktu należy dodać mu wartości parametrów,
+każda kategoria wyświetla podrzędne produkty.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
