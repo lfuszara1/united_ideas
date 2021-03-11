@@ -147,22 +147,22 @@ class ProductsController < ApplicationController
     case @parameter.field_type
     when 1
       @attribute_value = DecimalAttribute.find(params[:id])
-      @attribute_value.update(parameter_params)
+      @attribute_value.update(decimal_parameter_params)
 
       redirect_to category_product_show_params_path_path(@category, @product)
     when 2
       @attribute_value = IntAttribute.find(params[:id])
-      @attribute_value.update(parameter_params)
+      @attribute_value.update(int_parameter_params)
 
       redirect_to category_product_show_params_path_path(@category, @product)
     when 3
       @attribute_value = StringAttribute.find(params[:id])
-      @attribute_value.update(parameter_params)
+      @attribute_value.update(string_parameter_params)
 
       redirect_to category_product_show_params_path_path(@category, @product)
     when 4
       @attribute_value = HashAttribute.find(params[:id])
-      @attribute_value.update(parameter_params)
+      @attribute_value.update(hash_parameter_params)
 
       redirect_to edit_category_parameter_hash_attribute_hash_element_path(@category, @parameter, @attribute_value.id)
     end
@@ -202,8 +202,20 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:category_id, :parameter_id, :name, :price)
   end
 
-  def parameter_params
+  def decimal_parameter_params
+    params.require(:decimal_attribute).permit(:parameter_id, :product_id, :value)
+  end
+
+  def int_parameter_params
     params.require(:int_attribute).permit(:parameter_id, :product_id, :value)
+  end
+
+  def string_parameter_params
+    params.require(:string_attribute).permit(:parameter_id, :product_id, :value)
+  end
+
+  def hash_parameter_params
+    params.require(:hash_attribute).permit(:parameter_id, :product_id, :value)
   end
 
 end
