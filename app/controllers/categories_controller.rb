@@ -37,6 +37,11 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    categories = Category.all
+    @categories = []
+    categories.each do |category|
+      @categories << [category.name, category.id]
+    end
     @category = Category.find(params[:id])
   end
 
@@ -57,7 +62,7 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:category_id, :name)
+    params.require(:category).permit(:category_id, :parameters_from, :name)
   end
 
 end

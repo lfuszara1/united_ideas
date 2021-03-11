@@ -2,6 +2,7 @@
 <%= form_for @category do |form| %>
   <%= form.text_field :name, placeholder: "name" %>
   <%= form.number_field :category_id, placeholder: 1 %>
+  <%= form.select :parameters_from, @categories %>
 
   <%= form.submit %>
 <% end %>

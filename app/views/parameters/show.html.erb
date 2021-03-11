@@ -13,16 +13,16 @@
   <%= link_to "Up", category_parameters_path(@category) %>
 
   <%= @parameter.name %>
-  <% if @parameter.field_type == 1 %>
+  <% if @parameter.field_type == 1 && !@attribute.first.nil? %>
     <%= @attribute.first.value %>
     <%= link_to "Edit", edit_category_parameter_decimal_attribute_path(@category, @parameter, @attribute.first.id) %>
-  <% elsif @parameter.field_type == 2 %>
+  <% elsif @parameter.field_type == 2 && !@attribute.first.nil? %>
     <%= @attribute.first.value %>
     <%= link_to "Edit", edit_category_parameter_int_attribute_path(@category, @parameter, @attribute.first.id) %>
-  <% elsif @parameter.field_type == 3 %>
+  <% elsif @parameter.field_type == 3 && !@attribute.first.nil? %>
     <%= @attribute.first.value %>
     <%= link_to "Edit", edit_category_parameter_string_attribute_path(@category, @parameter, @attribute.first.id) %>
-  <% elsif @parameter.field_type == 4 %>
+  <% elsif @parameter.field_type == 4 && !@attribute.first.nil? %>
     <% @attribute.first.each do |a| %>
       <%= a.value %>
       <%= link_to "Edit", edit_category_parameter_hash_attribute_hash_element_path(@category, @parameter, @hash_attribute.first.id, a.id) %>
@@ -36,8 +36,10 @@
       <%= link_to "New", new_category_parameter_int_attribute_path(@category, @parameter) %>
     <% elsif @parameter.field_type == 3 %>
       <%= link_to "New", new_category_parameter_int_attribute_path(@category, @parameter) %>
-    <% elsif @parameter.field_type == 4 %>
+    <% elsif @parameter.field_type == 4 && !@hash_attribute.first.nil? %>
       <%= link_to "New", new_category_parameter_hash_attribute_hash_element_path(@category, @parameter, @hash_attribute.first.id) %>
+    <% elsif @parameter.field_type == 4 && @hash_attribute.first.nil? %>
+      <%= link_to "New", new_category_parameter_hash_attribute_path(@category, @parameter.id) %>
     <% end %>
   </button>
 </div>

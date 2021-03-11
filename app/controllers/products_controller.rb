@@ -2,10 +2,15 @@ class ProductsController < ApplicationController
 
   def index
     @category = Category.find(params[:category_id])
-
+    @child_categories = Category.childs(@category)
+    if !@category.category_id.nil?
+      @category_back = Category.find(@category.category_id)
+    else
+      @category_back = Category.find(1)
+    end
     queue = []
     queue << @category.id
-    @categories_ids = [1]
+    @categories_ids = [@category.id]
     loop do
       element = queue.shift
       categories = Category.where(category_id: element)
@@ -16,23 +21,6 @@ class ProductsController < ApplicationController
       end unless categories.empty?
 
       break if queue.empty?
-    end
-
-    @parameters = []
-    @categories_ids.each do |id|
-      category = Category.find(id)
-      parameters = category.parameters.all
-
-      parameters.each do |parameter|
-        @parameters << parameter
-      end
-    end
-
-    @child_categories = Category.childs(@category)
-    if !@category.category_id.nil?
-      @category_back = Category.find(@category.category_id)
-    else
-      @category_back = Category.find(1)
     end
 
     @products = Product.where(category_id: @categories_ids)
@@ -49,9 +37,9 @@ class ProductsController < ApplicationController
     end
     @product = Product.find(params[:id])
 
-    @categories_ids = [params[:category_id].to_i]
-    while @categories_ids.last.to_i > 1
-      @categories_ids << Category.where(id: @categories_ids.last).last.category_id
+    @categories_ids = [Category.find(params[:category_id].to_i).parameters_from]
+    while @params_from.to_i > 1
+      @categories_ids << Category.where(id: @categories_ids.last.parameters_from).last.category_id
     end
 
     @parameters = []
@@ -68,18 +56,34 @@ class ProductsController < ApplicationController
       case parameter.field_type.to_i
       when 1
         @parameter_attribute = DecimalAttribute.where(parameter_id: parameter.id).last
-        @attributes << [parameter.name, @parameter_attribute.value]
+        if @parameter_attribute.nil?
+          @attributes << [parameter.name, 0.0]
+        else
+          @attributes << [parameter.name, @parameter_attribute.value]
+        end
       when 2
         @parameter_attribute = IntAttribute.where(parameter_id: parameter.id).last
-        @attributes << [parameter.name, @parameter_attribute.value]
+        if @parameter_attribute.nil?
+          @attributes << [parameter.name, 0]
+        else
+          @attributes << [parameter.name, @parameter_attribute.value]
+        end
       when 3
         @parameter_attribute = StringAttribute.where(parameter_id: parameter.id).last
-        @attributes << [parameter.name, @parameter_attribute.value]
+        if @parameter_attribute.nil?
+          @attributes << [parameter.name, ""]
+        else
+          @attributes << [parameter.name, @parameter_attribute.value]
+        end
       when 4
         @parameter_attribute = HashAttribute.where(parameter_id: parameter.id).last
         @parameter_hash_attr = HashElement.where(hash_attribute_id: @parameter_attribute.id)
         @parameter_hash_attr.each do |hsh|
-          @attributes << [parameter.name, hsh.value]
+          if hsh.nil?
+            @attributes << [parameter.name, ""]
+          else
+            @attributes << [parameter.name, hsh.value]
+          end
         end
       end
     end
@@ -87,11 +91,6 @@ class ProductsController < ApplicationController
 
   def new
     @category = Category.find(params[:category_id])
-    parameters = Parameter.all
-    @parameters = []
-    parameters.each do |parameter|
-      @parameters << [parameter.name, parameter.id]
-    end
     @product = Product.new
   end
 
@@ -199,7 +198,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:category_id, :parameter_id, :name, :price)
+    params.require(:product).permit(:category_id, :name, :price)
   end
 
   def decimal_parameter_params

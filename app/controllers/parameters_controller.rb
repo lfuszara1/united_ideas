@@ -65,16 +65,7 @@ class ParametersController < ApplicationController
     @category = Category.find(params[:category_id])
     @parameter = Parameter.create(parameter_params)
 
-    case @parameter.field_type
-    when 1
-      redirect_to new_category_parameter_decimal_attribute_path(params[:category_id], @parameter.id)
-    when 2
-      redirect_to new_category_parameter_int_attribute_path(params[:category_id], @parameter.id)
-    when 3
-      redirect_to new_category_parameter_string_attribute_path(params[:category_id], @parameter.id)
-    when 4
-      redirect_to new_category_parameter_hash_attribute_path(params[:category_id], @parameter.id)
-    end
+    redirect_to category_parameters_path(@category, @parameter.id)
   end
 
   def edit
