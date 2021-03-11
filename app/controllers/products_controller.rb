@@ -77,13 +77,13 @@ class ProductsController < ApplicationController
         end
       when 4
         @parameter_attribute = HashAttribute.where(parameter_id: parameter.id).last
-        @parameter_hash_attr = HashElement.where(hash_attribute_id: @parameter_attribute.id)
-        @parameter_hash_attr.each do |hsh|
-          if hsh.nil?
-            @attributes << [parameter.name, ""]
-          else
+        if !@parameter_attribute.nil?
+          @parameter_hash_attr = HashElement.where(hash_attribute_id: @parameter_attribute.id)
+          @parameter_hash_attr.each do |hsh|
             @attributes << [parameter.name, hsh.value]
           end
+        else
+          @attributes << [parameter.name, ""]
         end
       end
     end
