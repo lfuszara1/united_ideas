@@ -1,0 +1,6 @@
+<h3>Add Hash Attribute</h3>
+<%= form_for [@category, @parameter, @hash_attribute] do |form| %>
+  <%= form.hidden_field :parameter_id, value: @parameter.id %>
+
+  <%= form.submit %>
+<% end %>

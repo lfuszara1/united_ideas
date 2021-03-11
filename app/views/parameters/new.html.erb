@@ -1,0 +1,9 @@
+<h3>Add Parameter</h3>
+<%= form_for [@category, @parameter] do |form| %>
+  <%= form.text_field :name, placeholder: "name" %>
+  <%= form.hidden_field :category_id, value: @category.id %>
+  <%= form.check_box :searchable? %>
+  <%= form.select :field_type, [['decimal', 1], ['integer', 2], ['string', 3], ['hash', 4]] %>
+
+  <%= form.submit %>
+<% end %>

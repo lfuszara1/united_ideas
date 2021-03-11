@@ -1,0 +1,2 @@
+module DecimalAttributesHelper
+end

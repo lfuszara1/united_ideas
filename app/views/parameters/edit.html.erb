@@ -1,0 +1,9 @@
+<h3>Edit Parameter</h3>
+
+<%= form_for [@category, @parameter] do |form| %>
+  <%= form.text_field :name, placeholder: "name", value: @parameter.name %>
+  <%= form.hidden_field :category_id, value: @category.id %>
+  <%= form.check_box :searchable? %>
+
+  <%= form.submit "Save" %>
+<% end %>

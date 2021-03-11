@@ -1,0 +1,32 @@
+<% if @field_type.to_i == 1 %>
+  <%= form_for [@category, @parameter, @parameter_attribute] do |form| %>
+    <%= form.number_field :value, placeholder: "1.0" %>
+    <%= form.hidden_field :parameter_id, value: @parameter.id %>
+    <%= form.hidden_field :product_id, value: @product.id %>
+
+    <%= form.submit %>
+  <% end %>
+<% elsif @field_type.to_i == 2 %>
+  <%= form_for [@category, @parameter, @parameter_attribute] do |form| %>
+    <%= form.number_field :value, placeholder: "1.0" %>
+    <%= form.hidden_field :parameter_id, value: @parameter.id %>
+    <%= form.hidden_field :product_id, value: @product.id %>
+
+    <%= form.submit %>
+  <% end %>
+<% elsif @field_type.to_i == 3 %>
+  <%= form_for [@category, @parameter, @parameter_attribute] do |form| %>
+    <%= form.text_field :value, placeholder: "1.0" %>
+    <%= form.hidden_field :parameter_id, value: @parameter.id %>
+    <%= form.hidden_field :product_id, value: @product.id %>
+
+    <%= form.submit %>
+  <% end %>
+<% elsif @field_type.to_i == 4 %>
+  <%= form_for [@category, @parameter, @parameter_attribute] do |form| %>
+    <%= form.hidden_field :parameter_id, value: @parameter.id %>
+    <%= form.hidden_field :product_id, value: @product.id %>
+
+    <%= form.submit %>
+  <% end %>
+<% end %>

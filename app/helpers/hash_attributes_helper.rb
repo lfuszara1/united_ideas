@@ -1,0 +1,2 @@
+module HashAttributesHelper
+end

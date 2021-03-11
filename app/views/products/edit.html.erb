@@ -1,0 +1,10 @@
+<h3>Edit Product</h3>
+
+<%= form_for [@category, @product] do |form| %>
+  <%= form.text_field :name, placeholder: "name" %>
+  <%= form.number_field :price, placeholder: "0.01" %>
+  <%= form.hidden_field :category_id, value: @category.id %>
+  <%= form.select :parameters, @parameters %>
+
+  <%= form.submit %>
+<% end %>

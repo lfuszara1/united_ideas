@@ -1,0 +1,2 @@
+module IntAttributesHelper
+end

@@ -1,0 +1,27 @@
+<% content_for(:sidebar) do %>
+  <div class="sidebar">
+    <ul>
+      <%= link_to @category.name, category_products_path(@category_back) %>
+      <% @child_categories.each do |category| %>
+        <li><%= link_to category.name, category_products_path(category) %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="content">
+  <button>
+    <%= link_to "New", new_category_product_path %>
+  </button>
+
+  <table>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, category_product_path(@category, product)  %></td>
+        <td><%= product.price %></td>
+        <td><%= link_to "Edit", edit_category_product_path(@category, product) %></td>
+        <td><%= link_to "Delete", category_product_path(@category, product), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,7 @@
+<ul>
+
+
+  <% @parameters.each do |parameter| %>
+    <li><%= parameter.name %> | <%= link_to "Value", category_product_new_param_path(@category, @product.id, parameter_id: parameter.id,field_type: parameter.field_type)  %></li>
+  <% end %>
+</ul>

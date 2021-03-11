@@ -1,0 +1,7 @@
+<h3>Edit String Attribute</h3>
+<%= form_for [@category, @parameter, @string_attribute] do |form| %>
+  <%= form.text_field :value, placeholder: "Lorem ipsum" %>
+  <%= form.hidden_field :parameter_id, value: @parameter.id %>
+
+  <%= form.submit %>
+<% end %>
