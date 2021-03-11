@@ -8,7 +8,7 @@ class ParametersController < ApplicationController
     else
       @category_back = Category.find(1)
     end
-    @parameters = Parameter.where(category_id: params[:category_id])
+    @parameters = Parameter.where(category_id: @category.id)
 
     @attributes = []
     @parameters.each do |parameter|
@@ -65,7 +65,7 @@ class ParametersController < ApplicationController
     @category = Category.find(params[:category_id])
     @parameter = Parameter.create(parameter_params)
 
-    redirect_to category_parameters_path(@category, @parameter.id)
+    redirect_to category_parameter_path(@category, @parameter.id)
   end
 
   def edit

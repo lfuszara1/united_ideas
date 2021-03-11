@@ -19,6 +19,7 @@
         <td><%= link_to category.name, category_products_path(category)  %></td>
         <td><%= link_to "Edit", edit_category_path(category) %></td>
         <td><%= link_to "Delete", category_path(category), method: :delete %></td>
+        <td><%= link_to "Parameters", category_parameters_path(@category) %></td>
         <td><%= link_to "New Parameter", new_category_parameter_path(@category) %></td>
         <td><%= link_to "New Product", new_category_product_path(@category) %></td>
       </tr>
